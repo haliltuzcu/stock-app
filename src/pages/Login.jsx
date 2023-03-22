@@ -16,12 +16,17 @@ const Login = () => {
   const { currentUser, error } = useSelector((state) => state?.auth);
 
   const loginScheme = object({
-    email: string().email("hatali giris").required("Bu alan zorunludur"),
+    email: string()
+      .email("Lutfen valid bir email giriniz")
+      .required("Email zorunludur"),
     password: string()
-      .required("Bu alan zorunludur")
-      .min(8, "en az 8 karekter olmalidir")
-      .max(20, "en fazla 20 karekter olmalidir")
-      
+      .required("password zorunludur")
+      .min(8, "password en az 8 karakter olmalıdır")
+      .max(20, "password en fazla 20 karakter olmalıdır")
+      .matches(/\d+/, "Password bir sayı içermelidir")
+      .matches(/[a-z]/, "Password bir küçük harf içermelidir")
+      .matches(/[A-Z]/, "Password bir büyük harf içermelidir")
+      .matches(/[!,?{}><%&$#£+-.]+/, "Password bir özel karakter içermelidir"),
   });
 
   return (
@@ -92,7 +97,7 @@ const Login = () => {
                     id="password"
                     type="password"
                     variant="outlined"
-                    value={values.password}
+                    value={values?.password || ""}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.password && Boolean(errors.password)}
