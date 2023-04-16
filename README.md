@@ -1,6 +1,6 @@
 # stock app
 
-![gif](./Animation.gif)
+![gif](./Animation2.gif)
 
 # What I used in this project?
 
